@@ -122,7 +122,6 @@ tableBtn.addEventListener("click", function(e){
 	way = e.value;
 	displayBoatTimes();
 
-	console.log("Way clicked", way);
 });
 
 var dayBtn = new ToggleBtn("#route", [{lable:"Hverdag", value:"Weekday"}, {lable:"Lørdag", value:"Saturday"}, {lable:"Søndag",value:"Sunday"}]);

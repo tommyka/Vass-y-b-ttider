@@ -67,8 +67,6 @@ class Model extends EventDispatcher {
 	getTimeTables(way:string, group:string){
 		var routes = [];
 
-		console.log("way", way, "group", group);
-
 		for(var key in this.data){
 			if(key.indexOf(way) != -1){
 				for(var routeday in this.data[key]){
