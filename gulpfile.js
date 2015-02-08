@@ -25,6 +25,7 @@ gulp.task('compile-ts', function(){
 gulp.task('less',function(){
 	gulp.src(less_src)
 		.pipe(less())
+		.on('error', function(err){ console.log(err.message); })
 		.pipe(gulp.dest(less_output));
 });
 

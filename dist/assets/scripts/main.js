@@ -110,6 +110,12 @@ var ToggleBtn = (function (_super) {
         this.index = (this._index + 1) % this.states.length;
     };
     ToggleBtn.prototype.setStateByValue = function (str) {
+        for (var i = 0; i < this.states.length; i++) {
+            if (this.states[i].value == str) {
+                this._index = i;
+                this.text = this.states[i].lable;
+            }
+        }
     };
     return ToggleBtn;
 })(EventDispatcher);
@@ -171,7 +177,6 @@ var Model = (function (_super) {
     };
     Model.prototype.getTimeTables = function (way, group) {
         var routes = [];
-        console.log("way", way, "group", group);
         for (var key in this.data) {
             if (key.indexOf(way) != -1) {
                 for (var routeday in this.data[key]) {
@@ -246,7 +251,6 @@ boats.addEventListener("complete", function () {
 });
 function displayBoatTimes() {
     //var result = boats.getCombinedTimeTable(way);
-    console.log("display boats", "update boat times");
     var result = boats.getCombinedTimeTable(way, group);
     lastUpdate = new Date().getTime();
     var date = new Date();
@@ -264,6 +268,12 @@ function displayBoatTimes() {
     }
     var ul = document.querySelector(".result_view ul");
     ul.innerHTML = str;
+    if (way === boats.VASSOY && !body.classList.contains("alternative")) {
+        body.classList.add("alternative");
+    }
+    else if (way === boats.STAVANGER && body.classList.contains("alternative")) {
+        body.classList.remove("alternative");
+    }
     if (nowSet) {
         scrollToNow();
     }
@@ -293,10 +303,10 @@ if (navigator.geolocation) {
     });
 }
 var tableBtn = new ToggleBtn("#way", [{ lable: "Fra Vassøy", value: boats.VASSOY }, { lable: "Fra Stavanger", value: boats.STAVANGER }]);
+tableBtn.setStateByValue(way);
 tableBtn.addEventListener("click", function (e) {
     way = e.value;
     displayBoatTimes();
-    console.log("Way clicked", way);
 });
 var dayBtn = new ToggleBtn("#route", [{ lable: "Hverdag", value: "Weekday" }, { lable: "Lørdag", value: "Saturday" }, { lable: "Søndag", value: "Sunday" }]);
 dayBtn.setStateByValue(groupOfToday);

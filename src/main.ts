@@ -53,8 +53,6 @@ boats.addEventListener("complete", function(){
 function displayBoatTimes(){
 	//var result = boats.getCombinedTimeTable(way);
 
-	console.log("display boats", "update boat times");
-
 	var result = boats.getCombinedTimeTable(way, group);
 	lastUpdate = new Date().getTime();
 	var date = new Date();
@@ -77,11 +75,18 @@ function displayBoatTimes(){
 			data.class = "now";
 			nowSet = true;
 		}
-
+		
 		str = str + renderTemplate(data);
 	}
 	var ul:HTMLElement = <HTMLElement>document.querySelector(".result_view ul");
 	ul.innerHTML = str;
+
+
+	if(way === boats.VASSOY && !body.classList.contains("alternative")){
+		body.classList.add("alternative");
+	}else if(way === boats.STAVANGER && body.classList.contains("alternative")){
+		body.classList.remove("alternative");
+	}
 
 	if(nowSet){
 		scrollToNow();
@@ -118,6 +123,8 @@ if(navigator.geolocation){
 
 
 var tableBtn = new ToggleBtn("#way", [{lable:"Fra Vassøy", value:boats.VASSOY}, {lable:"Fra Stavanger", value:boats.STAVANGER}]);
+tableBtn.setStateByValue(way);
+
 tableBtn.addEventListener("click", function(e){
 	way = e.value;
 	displayBoatTimes();

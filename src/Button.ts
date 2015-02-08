@@ -1,6 +1,5 @@
 /// <reference path="EventDispatcher.ts" />
 
-
 class ToggleBtn extends EventDispatcher{
 
 	private element:HTMLElement;
@@ -48,12 +47,17 @@ class ToggleBtn extends EventDispatcher{
 		return this._index;
 	}
 
-	nextState(){
+	nextState():void{
 		this.index = (this._index + 1) % this.states.length;
 	}
 
-	setStateByValue(str:String){
-
+	setStateByValue(str:String):void{
+		for(var i = 0; i < this.states.length; i++){
+			if(this.states[i].value == str){
+				this._index = i;
+				this.text = this.states[i].lable;
+			}
+		}
 	}
 
 }

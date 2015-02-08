@@ -43,7 +43,7 @@ header nav ul {
 header nav li {
   list-style: none;
   display: inline-block;
-  background-color: #2980B9;
+  background-color: #2980b9;
   padding: 16px 20px;
   border-top: solid 1px rgba(0, 0, 0, 0.3);
   font-size: 14px;
@@ -53,6 +53,10 @@ header nav li {
 }
 header nav li:not(:first-child) {
   border-left: 1px solid rgba(0, 0, 0, 0.15);
+}
+.alternative header ul li,
+.alternative li.now {
+  background-color: #27ae60;
 }
 h1 {
   font-size: 1.5em;
@@ -71,7 +75,7 @@ h1 {
 }
 .result_list li {
   list-style: none;
-  background: #2ecc71;
+  background: #1abc9c;
   padding: 22px;
   margin-bottom: 10px;
   font-size: 24px;
@@ -110,5 +114,5 @@ h1 {
   content: "\0078";
 }
 li.now {
-  background-color: #2980B9;
+  background-color: #1abc9c;
 }
