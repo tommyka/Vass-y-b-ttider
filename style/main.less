@@ -15,6 +15,7 @@
 @Stavanger: #2980b9;
 
 @Bar:#1abc9c;
+@modal_bg: #2c3e50;
 
 html {box-sizing: border-box;}
 *, *:before, *:after {box-sizing: inherit;}
@@ -109,4 +110,33 @@ h1 { font-size: 1.5em;}
 }
 li.now {
 	background-color:@Bar;
+}
+@modal_size: 10%;
+.modal {
+	position:fixed;
+	left: @modal_size;
+	right: @modal_size;
+	top: @modal_size;
+	bottom: @modal_size;
+	background-color: fade(@modal_bg, 80%);
+	border-radius: 10px;
+
+	article {
+		padding: 10%;
+	}
+}
+
+#app_info {
+	float: right;
+
+}
+.close {
+	position:absolute;
+	right: 10px;
+	top: 10px;
+	padding: 20px;
+}
+
+.hide {
+	display:none;
 }

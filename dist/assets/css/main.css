@@ -116,3 +116,27 @@ h1 {
 li.now {
   background-color: #1abc9c;
 }
+.modal {
+  position: fixed;
+  left: 10%;
+  right: 10%;
+  top: 10%;
+  bottom: 10%;
+  background-color: rgba(44, 62, 80, 0.8);
+  border-radius: 10px;
+}
+.modal article {
+  padding: 10%;
+}
+#app_info {
+  float: right;
+}
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 20px;
+}
+.hide {
+  display: none;
+}

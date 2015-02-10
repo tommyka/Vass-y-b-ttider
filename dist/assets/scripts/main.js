@@ -314,3 +314,12 @@ dayBtn.addEventListener("click", function (e) {
     group = e.value;
     displayBoatTimes();
 });
+var infoModal = document.querySelector(".modal");
+infoModal.querySelector(".close").addEventListener("click", function () {
+    infoModal.classList.add("hide");
+});
+var infoBtn = document.querySelector("#app_info");
+infoBtn.addEventListener("click", function () {
+    console.log("click");
+    infoModal.classList.remove("hide");
+});
