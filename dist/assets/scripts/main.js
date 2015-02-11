@@ -320,6 +320,5 @@ infoModal.querySelector(".close").addEventListener("click", function () {
 });
 var infoBtn = document.querySelector("#app_info");
 infoBtn.addEventListener("click", function () {
-    console.log("click");
     infoModal.classList.remove("hide");
 });

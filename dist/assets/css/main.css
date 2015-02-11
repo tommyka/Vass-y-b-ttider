@@ -14,6 +14,9 @@ html {
 *:after {
   box-sizing: inherit;
 }
+a {
+  color: white;
+}
 body {
   color: white;
   font-family: 'Roboto', sans-serif;
@@ -93,6 +96,9 @@ h1 {
   margin-left: -14px;
   margin-right: 20px;
 }
+.result_list .now {
+  background-color: #2980b9;
+}
 .icon {
   display: inline-block;
   font-family: 'journal_dingbats_2regular';
@@ -129,7 +135,13 @@ li.now {
   padding: 10%;
 }
 #app_info {
+  background: url(../InfoIcon.png);
+  background-size: 31px 31px;
+  width: 31px;
+  height: 31px;
   float: right;
+  margin-right: 20px;
+  margin-top: 16px;
 }
 .close {
   position: absolute;

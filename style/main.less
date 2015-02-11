@@ -20,6 +20,10 @@
 html {box-sizing: border-box;}
 *, *:before, *:after {box-sizing: inherit;}
 
+a {
+	color: white;
+}
+
 body{ color : white; font-family: 'Roboto', sans-serif; margin:0 0 64px 0;  padding: 0; background: #ecf0f1}
 header{
 	background-color:#3498DB; text-transform: uppercase; 
@@ -85,6 +89,10 @@ h1 { font-size: 1.5em;}
 			margin-left:  -14px;
 			margin-right: 20px;
 		}
+
+	}
+	.now{
+		background-color: @Stavanger;
 	}
 }
 
@@ -127,7 +135,13 @@ li.now {
 }
 
 #app_info {
+	background: url(../InfoIcon.png);
+	background-size: 31px 31px;
+	width: 31px;
+	height: 31px;
 	float: right;
+	margin-right: 20px;
+	margin-top: 16px;
 
 }
 .close {
