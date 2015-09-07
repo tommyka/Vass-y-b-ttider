@@ -1,3 +1,5 @@
 node_modules/
 vassoy_app.sublime-project
 vassoy_app.sublime-workspace
+dist/assets/css/main.css
+dist/assets/scripts/main.js
