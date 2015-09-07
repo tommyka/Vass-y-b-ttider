@@ -7,8 +7,8 @@ var body = <HTMLBodyElement>document.querySelector("body");
 var template:String = "<li class='[class]'><div class='icon [icon]'></div>[text] <span>([duration] min.)</span> <div class=\"boat\">[boat]</div></li>";
 
 var boats:Model = new Model();
-var viewVassoy: HTMLElement = <HTMLElement>document.querySelector(".vassoy ul");
-var viewStavanger: HTMLElement = <HTMLElement>document.querySelector(".stavanger ul");
+var viewVassoy: HTMLElement = <HTMLElement>document.querySelector(".vassoy");
+var viewStavanger: HTMLElement = <HTMLElement>document.querySelector(".stavanger");
 
 
 function renderTemplate(obj:any){
@@ -53,8 +53,8 @@ boats.addEventListener("complete", function(){
 });
 
 function updateView(){
-	renderBoatTimes(viewVassoy, boats.VASSOY, group);
-	renderBoatTimes(viewStavanger, boats.STAVANGER, group);
+	renderBoatTimes(<HTMLElement>viewVassoy.querySelector("ul"), boats.VASSOY, group);
+	renderBoatTimes(<HTMLElement>viewStavanger.querySelector("ul"), boats.STAVANGER, group);
 }
 
 function renderBoatTimes(target:HTMLElement, way:string, group:string){
@@ -133,8 +133,16 @@ var tableBtn = new ToggleBtn("#way", [{lable:"Fra Vassøy", value:boats.VASSOY},
 tableBtn.setStateByValue(way);
 
 tableBtn.addEventListener("click", function(e:any){
-	way = e.value;
-	updateView();
+	switch(e.value){
+		case boats.VASSOY:
+			viewVassoy.classList.add("selected");
+			viewStavanger.classList.remove("selected");
+			break;
+		case boats.STAVANGER:
+			viewStavanger.classList.add("selected");
+			viewVassoy.classList.remove("selected");
+			break;
+	}
 
 });
 

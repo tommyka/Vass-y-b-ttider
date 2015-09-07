@@ -36,7 +36,7 @@ gulp.task('less',function(){
 
 gulp.task('watch', function(){
 	gulp.watch(['src/**/*.ts'],['compile-ts', 'reload']);
-	gulp.watch(['style/**/*.less'], ['less', 'relaod']);
+	gulp.watch(['style/**/*.less'], ['less', 'reload']);
 });
 
 gulp.task('reload', function(){
