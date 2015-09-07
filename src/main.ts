@@ -7,6 +7,8 @@ var body = <HTMLBodyElement>document.querySelector("body");
 var template:String = "<li class='[class]'><div class='icon [icon]'></div>[text] <span>([duration] min.)</span> <div class=\"boat\">[boat]</div></li>";
 
 var boats:Model = new Model();
+var target: HTMLElement = <HTMLElement>document.querySelector(".result_view ul");
+
 
 function renderTemplate(obj:any){
 	var rtn = template;
@@ -41,16 +43,16 @@ var lastUpdate:number = null;
 setInterval(function(){
 	var t = new Date().getTime();
 	if(t - lastUpdate > 15 * 60 * 1000){
-		displayBoatTimes();
+		renderBoatTimes(target, way, group);
 	}
 }, 60 * 1000)
 
 boats.addEventListener("complete", function(){
 	//var result = boats.getNextDepature(boats.VASSOY);
-	displayBoatTimes();
+	renderBoatTimes(target, way, group);
 });
 
-function displayBoatTimes(){
+function renderBoatTimes(target:HTMLElement, way:string, group:string){
 	//var result = boats.getCombinedTimeTable(way);
 
 	var result = boats.getCombinedTimeTable(way, group);
@@ -78,7 +80,7 @@ function displayBoatTimes(){
 		
 		str = str + renderTemplate(data);
 	}
-	var ul:HTMLElement = <HTMLElement>document.querySelector(".result_view ul");
+	var ul:HTMLElement = target;
 	ul.innerHTML = str;
 
 
@@ -111,11 +113,11 @@ if(navigator.geolocation){
 		var offshore = dx < 0.001 && dy < 0.001;
 		if(offshore && way != boats.VASSOY){
 			way = boats.VASSOY;
-			displayBoatTimes();
+			renderBoatTimes(target, way, group);
 			tableBtn.setStateByValue(boats.VASSOY);
 		}else if(!offshore && way != boats.STAVANGER){
 			way = boats.STAVANGER;
-			displayBoatTimes();
+			renderBoatTimes(target, way, group);
 			tableBtn.setStateByValue(boats.STAVANGER);
 		}
 	});
@@ -127,7 +129,7 @@ tableBtn.setStateByValue(way);
 
 tableBtn.addEventListener("click", function(e:any){
 	way = e.value;
-	displayBoatTimes();
+	renderBoatTimes(target, way,group);
 
 });
 
@@ -136,7 +138,7 @@ dayBtn.setStateByValue(groupOfToday);
 
 dayBtn.addEventListener("click", function(e:any){
 	group = e.value;
-	displayBoatTimes();
+	renderBoatTimes(target, way,group);
 
 });
 
