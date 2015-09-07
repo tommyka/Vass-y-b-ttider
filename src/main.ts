@@ -7,7 +7,8 @@ var body = <HTMLBodyElement>document.querySelector("body");
 var template:String = "<li class='[class]'><div class='icon [icon]'></div>[text] <span>([duration] min.)</span> <div class=\"boat\">[boat]</div></li>";
 
 var boats:Model = new Model();
-var target: HTMLElement = <HTMLElement>document.querySelector(".result_view ul");
+var viewVassoy: HTMLElement = <HTMLElement>document.querySelector(".vassoy ul");
+var viewStavanger: HTMLElement = <HTMLElement>document.querySelector(".stavanger ul");
 
 
 function renderTemplate(obj:any){
@@ -43,14 +44,18 @@ var lastUpdate:number = null;
 setInterval(function(){
 	var t = new Date().getTime();
 	if(t - lastUpdate > 15 * 60 * 1000){
-		renderBoatTimes(target, way, group);
+		updateView();
 	}
 }, 60 * 1000)
 
 boats.addEventListener("complete", function(){
-	//var result = boats.getNextDepature(boats.VASSOY);
-	renderBoatTimes(target, way, group);
+	updateView();
 });
+
+function updateView(){
+	renderBoatTimes(viewVassoy, boats.VASSOY, group);
+	renderBoatTimes(viewStavanger, boats.STAVANGER, group);
+}
 
 function renderBoatTimes(target:HTMLElement, way:string, group:string){
 	//var result = boats.getCombinedTimeTable(way);
@@ -113,11 +118,11 @@ if(navigator.geolocation){
 		var offshore = dx < 0.001 && dy < 0.001;
 		if(offshore && way != boats.VASSOY){
 			way = boats.VASSOY;
-			renderBoatTimes(target, way, group);
+			updateView();
 			tableBtn.setStateByValue(boats.VASSOY);
 		}else if(!offshore && way != boats.STAVANGER){
 			way = boats.STAVANGER;
-			renderBoatTimes(target, way, group);
+			updateView();
 			tableBtn.setStateByValue(boats.STAVANGER);
 		}
 	});
@@ -129,7 +134,7 @@ tableBtn.setStateByValue(way);
 
 tableBtn.addEventListener("click", function(e:any){
 	way = e.value;
-	renderBoatTimes(target, way,group);
+	updateView();
 
 });
 
@@ -138,8 +143,7 @@ dayBtn.setStateByValue(groupOfToday);
 
 dayBtn.addEventListener("click", function(e:any){
 	group = e.value;
-	renderBoatTimes(target, way,group);
-
+	updateView();
 });
 
 var infoModal:HTMLElement = <HTMLElement>document.querySelector(".modal");

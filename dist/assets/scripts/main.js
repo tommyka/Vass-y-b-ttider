@@ -53,7 +53,7 @@ var EventDispatcher = (function () {
     return EventDispatcher;
 })();
 /// <reference path="EventDispatcher.ts" />
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -216,6 +216,8 @@ var Model = (function (_super) {
 var body = document.querySelector("body");
 var template = "<li class='[class]'><div class='icon [icon]'></div>[text] <span>([duration] min.)</span> <div class=\"boat\">[boat]</div></li>";
 var boats = new Model();
+var viewVassoy = document.querySelector(".vassoy ul");
+var viewStavanger = document.querySelector(".stavanger ul");
 function renderTemplate(obj) {
     var rtn = template;
     for (var key in obj) {
@@ -242,14 +244,17 @@ var lastUpdate = null;
 setInterval(function () {
     var t = new Date().getTime();
     if (t - lastUpdate > 15 * 60 * 1000) {
-        displayBoatTimes();
+        updateView();
     }
 }, 60 * 1000);
 boats.addEventListener("complete", function () {
-    //var result = boats.getNextDepature(boats.VASSOY);
-    displayBoatTimes();
+    updateView();
 });
-function displayBoatTimes() {
+function updateView() {
+    renderBoatTimes(viewVassoy, boats.VASSOY, group);
+    renderBoatTimes(viewStavanger, boats.STAVANGER, group);
+}
+function renderBoatTimes(target, way, group) {
     //var result = boats.getCombinedTimeTable(way);
     var result = boats.getCombinedTimeTable(way, group);
     lastUpdate = new Date().getTime();
@@ -259,14 +264,19 @@ function displayBoatTimes() {
     var str = "";
     for (var i = 0; i < result.length; i++) {
         var item = result[i];
-        var data = { text: formatTime(item.time), class: "", duration: item.duration, boat: item.id, icon: item.id == 898 ? "car" : "person" };
+        var data = { text: formatTime(item.time),
+            class: "",
+            duration: item.duration,
+            boat: item.id,
+            icon: item.id == 898 ? "car" : "person"
+        };
         if (!nowSet && group == groupOfToday && item.time > nowtime) {
             data.class = "now";
             nowSet = true;
         }
         str = str + renderTemplate(data);
     }
-    var ul = document.querySelector(".result_view ul");
+    var ul = target;
     ul.innerHTML = str;
     if (way === boats.VASSOY && !body.classList.contains("alternative")) {
         body.classList.add("alternative");
@@ -284,7 +294,6 @@ function scrollToNow() {
 }
 boats.load();
 var vassoy_center = [58.993102, 5.786350];
-//geolocation
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (e) {
         var dx = Math.abs(vassoy_center[0] - e.coords.latitude);
@@ -292,12 +301,12 @@ if (navigator.geolocation) {
         var offshore = dx < 0.001 && dy < 0.001;
         if (offshore && way != boats.VASSOY) {
             way = boats.VASSOY;
-            displayBoatTimes();
+            updateView();
             tableBtn.setStateByValue(boats.VASSOY);
         }
         else if (!offshore && way != boats.STAVANGER) {
             way = boats.STAVANGER;
-            displayBoatTimes();
+            updateView();
             tableBtn.setStateByValue(boats.STAVANGER);
         }
     });
@@ -306,13 +315,13 @@ var tableBtn = new ToggleBtn("#way", [{ lable: "Fra Vassøy", value: boats.VASSO
 tableBtn.setStateByValue(way);
 tableBtn.addEventListener("click", function (e) {
     way = e.value;
-    displayBoatTimes();
+    updateView();
 });
 var dayBtn = new ToggleBtn("#route", [{ lable: "Hverdag", value: "Weekday" }, { lable: "Lørdag", value: "Saturday" }, { lable: "Søndag", value: "Sunday" }]);
 dayBtn.setStateByValue(groupOfToday);
 dayBtn.addEventListener("click", function (e) {
     group = e.value;
-    displayBoatTimes();
+    updateView();
 });
 var infoModal = document.querySelector(".modal");
 infoModal.querySelector(".close").addEventListener("click", function () {

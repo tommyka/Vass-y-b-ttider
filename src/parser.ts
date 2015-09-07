@@ -82,7 +82,6 @@ class Model extends EventDispatcher {
 
 	getCombinedTimeTable(way:string, group:string){
 		var tables = this.getTimeTables(way, group);
-
 		for(var i = 1; i < tables.length; i ++){
 			tables[0] = tables[0].concat(tables[i]);
 		}
