@@ -8,7 +8,7 @@ interface iEvent{
 }
 
 class EventDispatcher {
-	private _listeners:Object;
+	private _listeners:any;
 	constructor(){
 
 	}
@@ -63,7 +63,7 @@ class EventDispatcher {
 
 			event.target = this;
 
-			var array = [];
+			var array:any = [];
 			var length = listenerArray.length;
 
 			for ( var i = 0; i < length; i ++ ) {

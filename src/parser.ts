@@ -18,7 +18,7 @@ class Model extends EventDispatcher {
 		}
 	}
 
-	parseData(data){
+	parseData(data:any){
 		for(var routename in data){
 			for(var groupname in data[routename]){
 				for(var i = 0; i < data[routename][groupname].length; i++){
@@ -47,7 +47,7 @@ class Model extends EventDispatcher {
 		req.send();
 	}
 
-	dayGroupName(dayNumber){
+	dayGroupName(dayNumber:number){
 		if(dayNumber == 0){
 			return "Sunday";
 		}else if(dayNumber < 6){
@@ -57,7 +57,7 @@ class Model extends EventDispatcher {
 		}
 	}
 
-	getGroupFromDate(date){
+	getGroupFromDate(date:Date){
 		var day = date || new Date();
 		var group = this.dayGroupName(day.getDay());
 
@@ -65,7 +65,7 @@ class Model extends EventDispatcher {
 	}
 
 	getTimeTables(way:string, group:string){
-		var routes = [];
+		var routes:any = [];
 
 		for(var key in this.data){
 			if(key.indexOf(way) != -1){
@@ -80,7 +80,7 @@ class Model extends EventDispatcher {
 		return routes;
 	}
 
-	getCombinedTimeTable(way, group){
+	getCombinedTimeTable(way:string, group:string){
 		var tables = this.getTimeTables(way, group);
 
 		for(var i = 1; i < tables.length; i ++){
@@ -90,7 +90,7 @@ class Model extends EventDispatcher {
 		return tables[0].sort(this.SORT_TIME);
 	}
 
-	SORT_TIME(a,b){
+	SORT_TIME(a:any,b:any){
 		var an = Number(a.time);
 		var bn = Number(b.time);
 		if(an < bn){

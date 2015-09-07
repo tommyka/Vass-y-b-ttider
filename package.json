@@ -1,0 +1,13 @@
+{
+	"name":"Vassoy",
+	"version":"0.0.1",
+	"private": true,
+	"dependencies":{
+	},
+	"devDependencies":{
+		"gulp": "^3.8.11",
+		"browser-sync": "^2.5.3",
+		"gulp-less": "*",
+		"gulp-typescript": "*"
+	}
+}

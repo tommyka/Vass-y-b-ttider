@@ -8,7 +8,7 @@ var template:String = "<li class='[class]'><div class='icon [icon]'></div>[text]
 
 var boats:Model = new Model();
 
-function renderTemplate(obj){
+function renderTemplate(obj:any){
 	var rtn = template;
 	for(var key in obj){
 		rtn = rtn.replace("["+key+"]", obj[key]);
@@ -16,7 +16,7 @@ function renderTemplate(obj){
 	return rtn;
 }
 
-function formatTime(time){
+function formatTime(time:string){
 	time = String(time);
 	if(time.length == 1){
 		time = "0"+time;
@@ -36,7 +36,7 @@ var way = boats.VASSOY;
 var group = boats.getGroupFromDate(new Date());
 var groupOfToday = group;
 
-var lastUpdate = null;
+var lastUpdate:number = null;
 
 setInterval(function(){
 	var t = new Date().getTime();
@@ -104,7 +104,7 @@ var vassoy_center = [58.993102, 5.786350];
 //geolocation
 if(navigator.geolocation){
 
-	navigator.geolocation.getCurrentPosition(function(e){
+	navigator.geolocation.getCurrentPosition(function(e:any){
 		var dx = Math.abs(vassoy_center[0]-e.coords.latitude);
 		var dy = Math.abs(vassoy_center[1]-e.coords.longitude);
 
@@ -125,7 +125,7 @@ if(navigator.geolocation){
 var tableBtn = new ToggleBtn("#way", [{lable:"Fra Vassøy", value:boats.VASSOY}, {lable:"Fra Stavanger", value:boats.STAVANGER}]);
 tableBtn.setStateByValue(way);
 
-tableBtn.addEventListener("click", function(e){
+tableBtn.addEventListener("click", function(e:any){
 	way = e.value;
 	displayBoatTimes();
 
@@ -134,7 +134,7 @@ tableBtn.addEventListener("click", function(e){
 var dayBtn = new ToggleBtn("#route", [{lable:"Hverdag", value:"Weekday"}, {lable:"Lørdag", value:"Saturday"}, {lable:"Søndag",value:"Sunday"}]);
 dayBtn.setStateByValue(groupOfToday);
 
-dayBtn.addEventListener("click", function(e){
+dayBtn.addEventListener("click", function(e:any){
 	group = e.value;
 	displayBoatTimes();
 
