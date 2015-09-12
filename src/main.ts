@@ -8,6 +8,7 @@ var template:String = "<li class='[class]'><div class='icon [icon]'></div>[text]
 
 var boats:Model = new Model();
 var viewVassoy: HTMLElement = <HTMLElement>document.querySelector(".vassoy");
+viewVassoy.classList.add("selected");
 var viewStavanger: HTMLElement = <HTMLElement>document.querySelector(".stavanger");
 
 
@@ -117,13 +118,17 @@ if(navigator.geolocation){
 
 		var offshore = dx < 0.001 && dy < 0.001;
 		if(offshore && way != boats.VASSOY){
-			way = boats.VASSOY;
-			updateView();
+			viewVassoy.classList.add("selected");
+			viewStavanger.classList.remove("selected");
 			tableBtn.setStateByValue(boats.VASSOY);
+
+			console.log("show Vassøy");
 		}else if(!offshore && way != boats.STAVANGER){
-			way = boats.STAVANGER;
-			updateView();
+			viewStavanger.classList.add("selected");
+			viewVassoy.classList.remove("selected");
 			tableBtn.setStateByValue(boats.STAVANGER);
+
+			console.log("show stavanger");
 		}
 	});
 }

@@ -35,13 +35,26 @@ class Model extends EventDispatcher {
 	load(url:string = null){
 		var self = this;
 
+		
+
 		var req = new XMLHttpRequest();
 		req.open("GET",url || "boat.json", true);
 		req.onload = function(e){
 
 			var data = self.parseData(JSON.parse(req.responseText));
 			self.data = data;
+
+			localStorage.setItem("timesheet", data);
+
+
 			self.dispatchEvent({type:"complete", data: data});
+		}
+		req.onerror = function(){
+			var cacheData = localStorage.getItem("timesheet");
+			if(cacheData != null){
+				self.data = cacheData;
+				self.dispatchEvent({type:"complete", data: data});
+			}
 		}
 
 		req.send();

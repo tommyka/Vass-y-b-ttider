@@ -1,0 +1,12 @@
+CACHE MANIFEST
+# v1 - 2015-09-12
+# Vassøy båt tider
+
+index.html
+assets/css/main.css
+assets/scripts/main.js
+assets/journaldingbats2-webfont.woff
+assets/InfoIcon.png
+
+NETWORK:
+boat.json
