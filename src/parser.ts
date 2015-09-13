@@ -25,7 +25,6 @@ class Model extends EventDispatcher {
 
 					var t = data[routename][groupname][i];
 					t.time = parseInt(t.time.replace(":", ""));
-
 				}
 			}
 		}
@@ -35,29 +34,38 @@ class Model extends EventDispatcher {
 	load(url:string = null){
 		var self = this;
 
-		
+		console.log(localStorage.getItem('timesheet'));
 
-		var req = new XMLHttpRequest();
-		req.open("GET",url || "boat.json", true);
-		req.onload = function(e){
+		if (!window.navigator.onLine) {
+			var req = new XMLHttpRequest();
+			req.open("GET", url || "boat.json", true);
+			req.onload = function(e) {
+				var data = self.parseData(JSON.parse(req.responseText));
+				self.data = data;
 
-			var data = self.parseData(JSON.parse(req.responseText));
-			self.data = data;
+				localStorage.setItem("timesheet", req.responseText);
 
-			localStorage.setItem("timesheet", data);
+				self.dispatchEvent({ type: "complete", data: data });
+			}
+			req.onerror = function() {
+				var cacheData = localStorage.getItem("timesheet");
+				if (cacheData != null) {
 
+					self.data = self.parseData(JSON.parse(cacheData));
+					self.dispatchEvent({ type: "complete", data: self.data });
+				}
+			}
 
-			self.dispatchEvent({type:"complete", data: data});
-		}
-		req.onerror = function(){
+			req.send();
+		}else{
 			var cacheData = localStorage.getItem("timesheet");
-			if(cacheData != null){
-				self.data = cacheData;
-				self.dispatchEvent({type:"complete", data: data});
+
+			if (cacheData != null) {
+
+				self.data = self.parseData(JSON.parse(cacheData));
+				self.dispatchEvent({ type: "complete", data: self.data });
 			}
 		}
-
-		req.send();
 	}
 
 	dayGroupName(dayNumber:number){
@@ -113,5 +121,4 @@ class Model extends EventDispatcher {
 			return 0;
 		}
 	}
-
 }

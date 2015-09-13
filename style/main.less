@@ -14,6 +14,8 @@
 @Vassoy: #27ae60;
 @Stavanger: #2980b9;
 
+@SelectedColor:#e67e22;
+
 @Bar:#1abc9c;
 @modal_bg: #2c3e50;
 
@@ -92,7 +94,12 @@ h1 { font-size: 1.5em;}
 		}
 
 	}
-	.now{
+	ul .now{
+		background-color: @SelectedColor !important;
+	}
+}
+.result_list.stavanger {
+	li {
 		background-color: @Stavanger;
 	}
 }
@@ -143,9 +150,9 @@ h1 { font-size: 1.5em;}
 .icon.person:before{
 	content: "\0078";
 }
-li.now {
+/*li.now {
 	background-color:@Bar;
-}
+}*/
 @modal_size: 10%;
 .modal {
 	position:fixed;
