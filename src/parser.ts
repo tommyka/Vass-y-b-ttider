@@ -34,7 +34,7 @@ class Model extends EventDispatcher {
 	load(url:string = null){
 		var self = this;
 
-		if (!window.navigator.onLine) {
+		if (window.navigator.onLine) {
 			var req = new XMLHttpRequest();
 			req.open("GET", url || "boat.json", true);
 			req.onload = function(e) {
