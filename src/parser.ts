@@ -34,8 +34,6 @@ class Model extends EventDispatcher {
 	load(url:string = null){
 		var self = this;
 
-		console.log(localStorage.getItem('timesheet'));
-
 		if (!window.navigator.onLine) {
 			var req = new XMLHttpRequest();
 			req.open("GET", url || "boat.json", true);
