@@ -21,6 +21,7 @@ gulp.task('browsersync', function(){
 
 
 gulp.task('compile-ts', function(){
+	console.log("compile typescirp");
 	var ts = gulp.src(ts_main)
 		.pipe(typescript(tsProject));
 

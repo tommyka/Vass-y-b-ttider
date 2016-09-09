@@ -4,7 +4,11 @@ class Model extends EventDispatcher {
 	VASSOY:string = "v-s";
 	STAVANGER:string = "s-v";
 
+	//Data
+
 	data:any = [];
+	route: any = {};
+	red: any = [];
 
 	constructor(){
 		super();
@@ -19,15 +23,30 @@ class Model extends EventDispatcher {
 	}
 
 	parseData(data:any){
-		for(var routename in data){
-			for(var groupname in data[routename]){
-				for(var i = 0; i < data[routename][groupname].length; i++){
+		console.log("parseData");
 
-					var t = data[routename][groupname][i];
+		var route  = data.route;
+		for(var routename in route){
+			for(var groupname in route[routename]){
+				for(var i = 0; i < route[routename][groupname].length; i++){
+
+					var t = route[routename][groupname][i];
 					t.time = parseInt(t.time.replace(":", ""));
 				}
 			}
 		}
+
+		this.route = route;
+
+		var red = data.red;
+		for (i = 0; i < red.length; i ++){
+			var routechange = red[i];
+			var daysplit: string[] = routechange.day.split("/");
+			routechange.day = new Date(Number(daysplit[2]), Number(daysplit[1])-1, Number(daysplit[0]));
+
+		}
+
+		this.red = red;
 		return data;
 	}
 
@@ -76,8 +95,20 @@ class Model extends EventDispatcher {
 		}
 	}
 
+	getRedDay(date:Date):any{
+		console.log("getRedDay", this.red);
+		for (var i = 0; i < this.red.length; i++){
+			var red = this.red[i];
+			if(date.toDateString() == red.day.toDateString()){
+				return red;
+			}
+		}
+	}
+
 	getGroupFromDate(date:Date){
 		var day = date || new Date();
+
+
 		var group = this.dayGroupName(day.getDay());
 
 		return group;
@@ -86,11 +117,11 @@ class Model extends EventDispatcher {
 	getTimeTables(way:string, group:string){
 		var routes:any = [];
 
-		for(var key in this.data){
+		for(var key in this.route){
 			if(key.indexOf(way) != -1){
-				for(var routeday in this.data[key]){
+				for(var routeday in this.route[key]){
 					if(routeday.indexOf(group) != -1){
-						routes.push(this.data[key][routeday]);
+						routes.push(this.route[key][routeday]);
 					}
 				}
 			}

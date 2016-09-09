@@ -1,6 +1,7 @@
 /// <reference path="EventDispatcher.ts" />
 /// <reference path="Button.ts" />
 /// <reference path="parser.ts" />
+/// <reference path="sticky.ts" />
 
 var body = <HTMLBodyElement>document.querySelector("body");
 
@@ -10,6 +11,9 @@ var boats:Model = new Model();
 var viewVassoy: HTMLElement = <HTMLElement>document.querySelector(".vassoy");
 viewVassoy.classList.add("selected");
 var viewStavanger: HTMLElement = <HTMLElement>document.querySelector(".stavanger");
+
+var warningContainer: HTMLElement = <HTMLElement>document.querySelector(".warning-container");
+var warningField: HTMLElement = <HTMLElement>document.querySelector(".warning");
 
 
 function renderTemplate(obj:any){
@@ -37,21 +41,71 @@ function formatTime(time:string){
 }
 
 var way = boats.VASSOY;
+
 var group = boats.getGroupFromDate(new Date());
 var groupOfToday = group;
 
-var lastUpdate:number = null;
+var lastCheck: Date = new Date();
+var lastUpdate:number = lastCheck.getTime();
 
-setInterval(function(){
-	var t = new Date().getTime();
-	if(t - lastUpdate > 15 * 60 * 1000){
+setInterval(function() {
+	
+	var t = new Date();
+
+	if(lastCheck.toDateString() != t.toDateString()){
+		SetToCurrentGroupWithRedDay();
+		
+		return;
+	}
+
+	if (t.getTime() - lastUpdate > 15 * 60 * 1000) {
 		updateView();
 	}
-}, 60 * 1000)
+}, 60 * 1000);
 
 boats.addEventListener("complete", function(){
-	updateView();
+	SetToCurrentGroupWithRedDay();
+	renderRedDayList(boats.red);
 });
+
+function SetToCurrentGroupWithRedDay(){
+	var redday = boats.getRedDay(new Date());
+
+	if (redday) {
+		group = redday.route;
+		groupOfToday = group;
+		warningContainer.classList.add("show");
+		var d: Date = redday.day;
+		console.log(redday)
+		warningField.textContent = d.getDate() + "." + d.getMonth() + "." + d.getFullYear() + ": " +  redday.message;
+		sticky.activate();
+	}else{
+		warningContainer.classList.remove("show");
+		group = boats.getGroupFromDate(new Date());
+		groupOfToday = group;
+		sticky.deactivate();
+	}
+	dayBtn.setStateByValue(group);
+	updateView();
+}
+
+function renderRedDayList(days:any){
+	var target: HTMLElement = <HTMLElement>document.querySelector(".red-days .content");
+
+	var today: Date = new Date();
+
+	for (var i = 0; i < days.length; i++){
+		var day = days[i];
+		var d:Date = day.day;
+		if (d.getTime() > today.getTime()){
+			
+			var li = document.createElement("li");
+			li.textContent = d.getDate() + "." + d.getMonth() + "." + d.getFullYear() + ": " + day.message;
+			target.appendChild(li);
+		}
+
+	}
+}
 
 function updateView(){
 	renderBoatTimes(<HTMLElement>viewVassoy.querySelector("ul"), boats.VASSOY, group);
@@ -158,7 +212,9 @@ dayBtn.addEventListener("click", function(e:any){
 	group = e.value;
 	updateView();
 });
-
+warningField.addEventListener("click", function(){
+	SetToCurrentGroupWithRedDay();
+});
 var infoModal:HTMLElement = <HTMLElement>document.querySelector(".modal");
 infoModal.querySelector(".close").addEventListener("click", function(){
 	infoModal.classList.add("hide");
@@ -167,3 +223,5 @@ var infoBtn:HTMLElement = <HTMLElement>document.querySelector("#app_info");
 infoBtn.addEventListener("click", function(){
 	infoModal.classList.remove("hide");
 });
+
+var sticky: Sticky = new Sticky(warningContainer);
