@@ -115,7 +115,7 @@ function updateView(){
 function renderBoatTimes(target:HTMLElement, way:string, group:string){
 	//var result = boats.getCombinedTimeTable(way);
 
-	var result = boats.getCombinedTimeTable(way, group);
+	var result = boats.getCombinedTimeTablePlusNext(way, group);
 	lastUpdate = new Date().getTime();
 	var date = new Date();
 	var nowtime = date.getHours()*100+date.getMinutes();

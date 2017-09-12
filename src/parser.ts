@@ -94,6 +94,17 @@ class Model extends EventDispatcher {
 			return "Saturday";
 		}
 	}
+	groupDayNumber (groupName:string) {
+		if (groupName === 'Saturday') {
+			return 6;
+		} else if (groupName === 'Sunday') {
+			return 0;
+		}
+
+		var daynumber = new Date().getDay();
+		return daynumber > 1 && daynumber < 6 ? daynumber : 2;
+	}
+
 
 	getRedDay(date:Date):any{
 		console.log("getRedDay", this.red);
@@ -138,6 +149,25 @@ class Model extends EventDispatcher {
 
 		return tables[0].sort(this.SORT_TIME);
 	}
+
+	getCombinedTimeTablePlusNext (way:string, group:string) {
+		var data = this.getCombinedTimeTable(way, group);
+
+		var nextDay = this.groupDayNumber(group);
+		nextDay = (nextDay + 1) % 7;
+
+		var nextDayData = this.getCombinedTimeTable(way, this.dayGroupName(nextDay));
+		for (var i = 0; i < nextDayData.length; i++) {
+			if (nextDayData[i].time < 400) {
+				data.push(nextDayData[i]);
+			} else {
+				break;
+			}
+		}
+
+		return data;
+	}
+
 
 	SORT_TIME(a:any,b:any){
 		var an = Number(a.time);
