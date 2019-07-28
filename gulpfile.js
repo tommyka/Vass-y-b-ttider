@@ -3,7 +3,7 @@ var typescript = require('gulp-typescript');
 var less = require('gulp-less');
 var browser = require('browser-sync');
 
-var tsProject = typescript.createProject('tsconfig.json');
+//var tsProject = typescript.createProject('tsconfig.json');
 
 var ts_main = "src/main.ts";
 var ts_output = "dist/assets/scripts/";
@@ -21,11 +21,13 @@ gulp.task('browsersync', function(){
 
 
 gulp.task('compile-ts', function(){
-	console.log("compile typescirp");
 	var ts = gulp.src(ts_main)
-		.pipe(typescript(tsProject));
+		.pipe(typescript({
+			target: 'ES5',
+			outFile: 'main.js'
+		}));
 
-	ts.js.pipe(gulp.dest(ts_output));
+	ts.pipe(gulp.dest(ts_output));
 });
 
 gulp.task('less',function(){
@@ -34,6 +36,7 @@ gulp.task('less',function(){
 		.on('error', function(err){ console.log(err.message); })
 		.pipe(gulp.dest(less_output));
 });
+
 
 gulp.task('watch', function(){
 	gulp.watch(['src/**/*.ts'],['compile-ts', 'reload']);
@@ -46,3 +49,4 @@ gulp.task('reload', function(){
 
 
 gulp.task('default', ['less', 'compile-ts', 'browsersync', 'watch']);
+gulp.task('build', ['less', 'compile-ts']);

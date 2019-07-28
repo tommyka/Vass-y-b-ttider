@@ -1,13 +1,17 @@
 {
-	"name":"Vassoy",
-	"version":"0.0.1",
+	"name": "Vassoy",
+	"version": "0.0.1",
 	"private": true,
-	"dependencies":{
-	},
-	"devDependencies":{
-		"gulp": "^3.8.11",
+	"dependencies": {},
+	"devDependencies": {
 		"browser-sync": "^2.5.3",
+		"gulp": "^3.8.11",
 		"gulp-less": "*",
-		"gulp-typescript": "*"
+		"gulp-typescript": "*",
+		"typescript": "^3.5.3"
+	},
+	"scripts": {
+		"start": "gulp",
+		"build": "gulp build"
 	}
 }
