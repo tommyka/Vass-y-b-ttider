@@ -1,13 +1,18 @@
 /// <reference path="EventDispatcher.ts" />
 /// <reference path="Button.ts" />
-/// <reference path="parser.ts" />
+/// <reference path="model.ts" />
 /// <reference path="sticky.ts" />
 
 var body = <HTMLBodyElement>document.querySelector("body");
 
-var template:String = "<li class='[class]'><div class='icon [icon]'></div>[text] <span>([duration] min.)</span> <div class=\"boat\">[boat]</div></li>";
+var template:String = `
+	<li class='[class]'>
+		<div class='icon [icon]'></div>[text] <span>([boat])</span>
+		<div class=\"boat\">[duration] min.</div>
+	</li>`;
 
 var boats:Model = new Model();
+var directionView: HTMLElement = <HTMLElement>document.querySelector('.direction');
 var viewVassoy: HTMLElement = <HTMLElement>document.querySelector(".vassoy");
 viewVassoy.classList.add("selected");
 var viewStavanger: HTMLElement = <HTMLElement>document.querySelector(".stavanger");
@@ -108,8 +113,14 @@ function renderRedDayList(days:any){
 }
 
 function updateView(){
+	updateDirectionText(way);
+
 	renderBoatTimes(<HTMLElement>viewVassoy.querySelector("ul"), boats.VASSOY, group);
 	renderBoatTimes(<HTMLElement>viewStavanger.querySelector("ul"), boats.STAVANGER, group);
+}
+
+function updateDirectionText (way:string) {
+	directionView.textContent = way === boats.VASSOY ? 'Vassøy -> Stavanger' : 'Stavanger -> Vassøy';
 }
 
 function renderBoatTimes(target:HTMLElement, way:string, group:string){
@@ -181,8 +192,6 @@ if(navigator.geolocation){
 			viewStavanger.classList.add("selected");
 			viewVassoy.classList.remove("selected");
 			tableBtn.setStateByValue(boats.STAVANGER);
-
-			console.log("show stavanger");
 		}
 	});
 }
@@ -196,10 +205,14 @@ tableBtn.addEventListener("click", function(e:any){
 		case boats.VASSOY:
 			viewVassoy.classList.add("selected");
 			viewStavanger.classList.remove("selected");
+			way = boats.VASSOY;
+			updateDirectionText(way);
 			break;
 		case boats.STAVANGER:
 			viewStavanger.classList.add("selected");
 			viewVassoy.classList.remove("selected");
+			way = boats.STAVANGER;
+			updateDirectionText(way);
 			break;
 	}
 
@@ -209,7 +222,7 @@ var dayBtn = new ToggleBtn("#route", [{lable:"Hverdag", value:"Weekday"}, {lable
 dayBtn.setStateByValue(groupOfToday);
 
 dayBtn.addEventListener("click", function(e:any){
-	group = e.value;
+	group = e.data;
 	updateView();
 });
 warningField.addEventListener("click", function(){
