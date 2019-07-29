@@ -41,7 +41,7 @@ class ToggleBtn extends EventDispatcher{
 			text = <string>stateValue;
 		}
 
-		this.dispatchEvent({type:"click", value:text});
+		this.dispatchEvent({type:"click", data:text});
 	}
 	get index():number{
 		return this._index;

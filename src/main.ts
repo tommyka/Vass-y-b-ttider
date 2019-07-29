@@ -49,12 +49,12 @@ var lastCheck: Date = new Date();
 var lastUpdate:number = lastCheck.getTime();
 
 setInterval(function() {
-	
+
 	var t = new Date();
 
 	if(lastCheck.toDateString() != t.toDateString()){
 		SetToCurrentGroupWithRedDay();
-		
+
 		return;
 	}
 
@@ -98,7 +98,7 @@ function renderRedDayList(days:any){
 		var day = days[i];
 		var d:Date = day.day;
 		if (d.getTime() > today.getTime()){
-			
+
 			var li = document.createElement("li");
 			li.textContent = d.getDate() + "." + d.getMonth() + "." + d.getFullYear() + ": " + day.message;
 			target.appendChild(li);
@@ -126,18 +126,18 @@ function renderBoatTimes(target:HTMLElement, way:string, group:string){
 	for(var i = 0; i< result.length; i++){
 		var item = result[i];
 
-		var data = {text: formatTime(item.time), 
+		var data = {text: formatTime(item.time),
 					class: "",
-					duration: item.duration, 
-					boat: item.id, 
-					icon: item.id == 898 ? "car" : "person" 
+					duration: item.duration,
+					boat: item.id,
+					icon: item.id == 898 ? "car" : "person"
 		}
 
 		if(!nowSet && group == groupOfToday && item.time > nowtime){
 			data.class = "now";
 			nowSet = true;
 		}
-		
+
 		str = str + renderTemplate(data);
 	}
 	var ul:HTMLElement = target;
@@ -192,7 +192,7 @@ var tableBtn = new ToggleBtn("#way", [{lable:"Fra Vassøy", value:boats.VASSOY},
 tableBtn.setStateByValue(way);
 
 tableBtn.addEventListener("click", function(e:any){
-	switch(e.value){
+	switch(e.data){
 		case boats.VASSOY:
 			viewVassoy.classList.add("selected");
 			viewStavanger.classList.remove("selected");

@@ -1,7 +1,7 @@
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-interface iEvent{
+interface iEvent {
 	type:string;
 	target?:any;
 	data?:any
@@ -53,7 +53,7 @@ class EventDispatcher {
 	}
 
 	dispatchEvent( event:iEvent ) {
-		
+
 		if ( this._listeners === undefined ) return;
 
 		var listeners = this._listeners;
