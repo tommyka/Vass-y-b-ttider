@@ -3,12 +3,10 @@ var typescript = require('gulp-typescript');
 var less = require('gulp-less');
 var browser = require('browser-sync');
 
-//var tsProject = typescript.createProject('tsconfig.json');
-
-var ts_main = "src/main.ts";
+var ts_main = "src/script/main.ts";
 var ts_output = "dist/assets/scripts/";
 
-var less_src = "style/*.less";
+var less_src = "src/style/*.less";
 var less_output = "dist/assets/css/";
 
 gulp.task('browsersync', function(){
