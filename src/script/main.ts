@@ -172,6 +172,10 @@ function scrollToNow(){
 }
 
 boats.load();
+// quick reload solution
+document.querySelector('#reload').addEventListener('click', function(e) {
+	window.location.reload();
+});
 
 var vassoy_center = [58.993102, 5.786350];
 //geolocation

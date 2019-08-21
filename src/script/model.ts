@@ -53,7 +53,7 @@ class Model extends EventDispatcher {
 	load(url:string = null){
 		var self = this;
 
-		if (window.navigator.onLine) {
+		//if (window.navigator.onLine) {
 			var req = new XMLHttpRequest();
 			req.open("GET", url || "boat.json", true);
 			req.onload = function(e) {
@@ -74,7 +74,7 @@ class Model extends EventDispatcher {
 			}
 
 			req.send();
-		}else{
+		/*}else{
 			var cacheData = localStorage.getItem("timesheet");
 
 			if (cacheData != null) {
@@ -82,7 +82,7 @@ class Model extends EventDispatcher {
 				self.data = self.parseData(JSON.parse(cacheData));
 				self.dispatchEvent({ type: "complete", data: self.data });
 			}
-		}
+		}*/
 	}
 
 	dayGroupName(dayNumber:number){
