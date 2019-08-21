@@ -51,16 +51,19 @@ gulp.task('copy-assets', function () {
 	gulp.src('src/assets/**/*.*')
 		.pipe(gulp.dest(dist+'/assets'));
 
-	gulp.src('src/index.html')
-		.pipe(gulp.dest(dist));
-
 	gulp.src('Routescript/boat.json')
+		.pipe(gulp.dest(dist));
+});
+
+gulp.task('html', function () {
+	gulp.src('src/index.html')
 		.pipe(gulp.dest(dist));
 });
 
 gulp.task('watch', function(){
 	gulp.watch(['src/**/*.ts'],['compile-ts', 'reload']);
-	gulp.watch(['style/**/*.less'], ['less', 'reload']);
+	gulp.watch(['src/style/**/*.less'], ['less', 'reload']);
+	gulp.watch(['src/index.html'], ['html', 'reload']);
 });
 
 gulp.task('reload', function(){
@@ -69,4 +72,4 @@ gulp.task('reload', function(){
 
 
 gulp.task('default', ['less','copy-assets', 'compile-ts', 'browsersync', 'watch']);
-gulp.task('build', ['manifest', 'copy-assets', 'less', 'compile-ts']);
+gulp.task('build', ['manifest', 'copy-assets', 'html', 'less', 'compile-ts']);
