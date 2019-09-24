@@ -1,7 +1,7 @@
 import gspread
 import json
 import codecs
-from oauth2client.client import SignedJwtAssertionCredentials
+from oauth2client.service_account import ServiceAccountCredentials
 
 def parse_sheet(sheet):
     route = {}
@@ -37,16 +37,17 @@ def parse_red_days(sheet):
 
     return currentPlan
 
-json_key = json.load(open('Vassoy-boat-timer-a54e1fbccc05.json'))
+#json_key = json.load(open('Vassoy-boat-timer-a54e1fbccc05.json'))
 scope = ['https://spreadsheets.google.com/feeds']
 
-credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'].encode(), scope)
+#credentials = ServiceAccountCredentials(json_key['client_email'], json_key['private_key'].encode(), scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name('Vassoy-boat-timer-a54e1fbccc05.json', scope)
 
 gc = gspread.authorize(credentials)
 
 #gc = gspread.login('dommy.ka@gmail.com', 'dssnzlqcgbirqebq')
 print(gc)
-print(gc.openall())
+#print(gc.openall())
 
 wks = gc.open_by_key("1AnXZ8p9DLiDIXP3R3EJlnV6X4HqRx5bP4Br1xYH42Y4")
 #wks = gc.open_by_url('https://drive.google.com/open?id=1AnXZ8p9DLiDIXP3R3EJlnV6X4HqRx5bP4Br1xYH42Y4')
