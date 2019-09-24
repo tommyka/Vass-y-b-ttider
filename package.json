@@ -1,10 +1,11 @@
 {
-	"name": "Vassoy",
-	"version": "0.0.1",
+	"name": "vassoy-boat-app",
+	"version": "0.0.4",
 	"private": true,
 	"dependencies": {},
 	"devDependencies": {
 		"browser-sync": "^2.5.3",
+		"google-spreadsheet": "tommyka/node-google-spreadsheet#add-row-index",
 		"gulp": "^3.8.11",
 		"gulp-less": "*",
 		"gulp-replace": "^1.0.0",
