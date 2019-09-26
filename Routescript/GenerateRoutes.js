@@ -1,6 +1,7 @@
 const GoogleSpreadsheet = require('google-spreadsheet');
 const { promisify } = require('util');
 const fs = require('fs');
+const path = require('path');
 
 const creds = require('./client_secret.json');
 
@@ -24,10 +25,16 @@ const parseRouteSheet = async(sheet) => {
   return route;
 }
 
+async function parseRedDays (sheet) {
+  const rows =  await promisify(sheet.getRows)({
+    offset: 0
+  });
+  return rows.map((row) => ({day: row.date, route: row.plan, message: row.message}));
+};
 
 async function accessSpredsheet () {
   const doc = new GoogleSpreadsheet('1AnXZ8p9DLiDIXP3R3EJlnV6X4HqRx5bP4Br1xYH42Y4');
-  //doc.useServiceAccountAuth
+
   await promisify(doc.useServiceAccountAuth)(creds);
   const info = await promisify(doc.getInfo)();
   const sheets = info.worksheets;
@@ -38,12 +45,14 @@ async function accessSpredsheet () {
     if(sheet.title !== 'Red'){
       const route =  await parseRouteSheet(sheet);
       routes[sheet.title] = route;
+    }else {
+      const red = await parseRedDays(sheet);
+      output.red = red;
     }
   };
 
   const json = JSON.stringify(output);
-  await promisify(fs.writeFile)('boatjs.json', json);
-  console.log(output);
+  await promisify(fs.writeFile)(path.join(__dirname, 'boat.json'), json);
 }
 
-accessSpredsheet();
+module.exports = accessSpredsheet;
