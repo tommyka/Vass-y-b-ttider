@@ -1,3 +1,5 @@
+var Routes = require('./Routescript/GenerateRoutes');
+
 var gulp = require('gulp');
 var typescript = require('gulp-typescript');
 var less = require('gulp-less');
@@ -47,6 +49,12 @@ gulp.task('manifest', function(){
 			.pipe(gulp.dest(dist));
 });
 
+gulp.task('get-routes', async function () {
+	await Routes();
+	gulp.src('Routescript/boat.json')
+		.pipe(gulp.dest(dist));
+});
+
 gulp.task('copy-assets', function () {
 	gulp.src('src/assets/**/*.*')
 		.pipe(gulp.dest(dist+'/assets'));
@@ -72,4 +80,4 @@ gulp.task('reload', function(){
 
 
 gulp.task('default', ['less','copy-assets', 'compile-ts', 'browsersync', 'watch']);
-gulp.task('build', ['manifest', 'copy-assets', 'html', 'less', 'compile-ts']);
+gulp.task('build', ['manifest', 'get-routes', 'copy-assets', 'html', 'less', 'compile-ts']);
