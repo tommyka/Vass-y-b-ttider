@@ -7,8 +7,9 @@ var body = <HTMLBodyElement>document.querySelector("body");
 
 var template: String = `
 	<li class='[class]'>
-		<div class='icon [icon]'></div>[text] <span>([boat])</span>
+    <div class='icon [icon]'></div>[text] <span>([boat])</span>
 		<div class=\"boat\">[duration] min.</div>
+    <a href="tel:48201919" class="phone"><span class="phone-icon"><img src="assets/phoneicon.svg" width="30"></span></a>
 	</li>`;
 
 var boats: Model = new Model();
@@ -166,14 +167,14 @@ function renderBoatTimes(target: HTMLElement, way: string, group: string) {
 
     var data = {
       text: formatTime(item.time),
-      class: "",
+      class: item.call ? "show-phone" : "",
       duration: item.duration,
-      boat: item.id + (item.call ? " 📞" : ""),
+      boat: item.id,
       icon: item.id == 898 ? "car" : "person"
     };
 
     if (!nowSet && group == groupOfToday && item.time > nowtime) {
-      data.class = "now";
+      data.class += " now";
       nowSet = true;
     }
 
