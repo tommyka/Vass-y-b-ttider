@@ -2,8 +2,15 @@ const GoogleSpreadsheet = require("google-spreadsheet");
 const { promisify } = require("util");
 const fs = require("fs");
 const path = require("path");
+const mergeWith = require("lodash/mergeWith");
 
 const creds = require("./client_secret.json");
+
+const arrayMerger = (objValue, srcValue) => {
+  if (Array.isArray(objValue)) {
+    return objValue.concat(srcValue);
+  }
+}
 
 const parseRouteSheet = async sheet => {
   let currentPlan = [];
@@ -41,6 +48,10 @@ async function parseRedDays(sheet) {
   }));
 }
 
+const timeToNumber = (time) => {
+  return parseInt(time.replace(':', ''), 10);
+}
+
 async function accessSpredsheet() {
   const doc = new GoogleSpreadsheet(
     "1AnXZ8p9DLiDIXP3R3EJlnV6X4HqRx5bP4Br1xYH42Y4"
@@ -55,7 +66,16 @@ async function accessSpredsheet() {
     const sheet = sheets[i];
     if (sheet.title !== "Red") {
       const route = await parseRouteSheet(sheet);
-      routes[sheet.title] = route;
+      const direction =  sheet.title.split('_')[1];
+      const mergedRoute = mergeWith(routes[direction] || {}, route, arrayMerger);
+      
+      // sort the boat times
+      Object.keys(mergedRoute).forEach(group => {
+        mergedRoute[group].sort((a, b) => {
+          return timeToNumber(a.time) > timeToNumber(b.time) ? 1 : -1;
+        });
+      });
+      routes[direction] = mergedRoute
     } else {
       const red = await parseRedDays(sheet);
       output.red = red;
