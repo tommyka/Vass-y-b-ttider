@@ -6,11 +6,12 @@
 	"devDependencies": {
 		"browser-sync": "^2.5.3",
 		"google-spreadsheet": "tommyka/node-google-spreadsheet#add-row-index",
-		"gulp": "^3.8.11",
+		"gulp": "4.0.2",
 		"gulp-less": "*",
 		"gulp-replace": "^1.0.0",
 		"gulp-typescript": "*",
-		"typescript": "^3.5.3"
+		"typescript": "^3.5.3",
+		"lodash": "4.17.19"
 	},
 	"scripts": {
 		"start": "gulp",

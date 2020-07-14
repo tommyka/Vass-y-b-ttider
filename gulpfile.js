@@ -83,19 +83,19 @@ gulp.task("reload", function() {
   browser.reload();
 });
 
-gulp.task("default", [
+gulp.task("default", gulp.series([
   "less",
   "copy-assets",
   "compile-ts",
   "html",
   "browsersync",
   "watch"
-]);
-gulp.task("build", [
+]));
+gulp.task("build", gulp.series([
   "manifest",
   "get-routes",
   "copy-assets",
   "html",
   "less",
   "compile-ts"
-]);
+]));
