@@ -2,4 +2,37 @@
 
 @tailwind components;
 
+@font-face {
+  font-family: "journal_dingbats_2regular";
+  src: url("../font/journaldingbats2-webfont.eot");
+  src: url("../font/journaldingbats2-webfont.eot?#iefix") format("embedded-opentype"),
+    url("../font/journaldingbats2-webfont.woff2") format("woff2"),
+    url("../font/journaldingbats2-webfont.woff") format("woff"),
+    url("../font/journaldingbats2-webfont.ttf") format("truetype"),
+    url("../font/journaldingbats2-webfont.svg#journal_dingbats_2regular")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.icon {
+  font-family: "journal_dingbats_2regular";
+  font-size: 60px;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  font-weight: normal;
+  line-height: 70px;
+}
+.icon.car:before {
+  content: "\2248";
+}
+.icon.person:before {
+  content: "\0078";
+}
+
 @tailwind utilities;
