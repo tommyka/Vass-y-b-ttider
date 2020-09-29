@@ -4,6 +4,8 @@ module.exports = {
     './src/**/*.tsx',
   ],
   theme: {},
-  variants: {},
+  variants: {
+    flexDirection: ['responsive'],
+  },
   plugins: [],
 }
