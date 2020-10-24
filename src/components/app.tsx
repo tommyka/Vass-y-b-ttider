@@ -45,18 +45,20 @@ const App = () => {
     <DirectionIndicator className="md:hidden"/>
     <div className="flex flex-col md:flex-row">
     <div className={`md:w-1/2 md:block md:mr-1 ${direction !== Direction.StavangerToVassøy ? 'hidden' : ''}`}>
-      <List list={stavanger} />
+      <List list={stavanger} className="bg-vass"/>
     </div>
     <div className={`md:w-1/2 md:block md:ml-1 ${direction !== Direction.VassøyToStavanger ? 'hidden' : ''}`}>
-      <List list={vassoy} className="bg-blue-700"/>
+      <List list={vassoy} className="bg-svg"/>
     </div>
   </div>
+    <div className="h-12 mb-2">
 
-    <div className="fixed bottom-0 shadow-lg w-full flex">
-      <div className="w-1/3 hidden md:block p-4 text-center">Fra Stavanger</div>
-      <button className="bg-orange-700 p-4 w-1/2 md:hidden" onClick={changeDirection}>{direction === Direction.StavangerToVassøy ? 'Fra Stavanger' : 'Fra Vassøy'} </button>
-      <button className="bg-pink-900 p-4 w-1/2 md:1/3" onClick={changeDay}>{day}</button>
-      <div className="w-1/3 hidden md:block p-4 text-center">Fra Vassøy</div>
+    <nav className="fixed bottom-0 shadow w-full flex md:bg-gray-700 ">
+      <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-r border-t border-bgray">Fra Stavanger</div>
+      <button className="p-3 w-1/2 md:hidden bg-svg text-white border-r border-t border-bgray" onClick={changeDirection}>{direction === Direction.StavangerToVassøy ? 'Fra Stavanger' : 'Fra Vassøy'} </button>
+      <button className="p-3 w-1/2 md:1/3 bg-svg text-white border-t border-bgray" onClick={changeDay}>{day}</button>
+      <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-l border-t border-bgray">Fra Vassøy</div>
+    </nav>
     </div>
   </div>);
 }
