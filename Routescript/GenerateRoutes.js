@@ -68,7 +68,7 @@ async function accessSpredsheet() {
       const route = await parseRouteSheet(sheet);
       const direction =  sheet.title.split('_')[1];
       const mergedRoute = mergeWith(routes[direction] || {}, route, arrayMerger);
-      
+
       // sort the boat times
       Object.keys(mergedRoute).forEach(group => {
         mergedRoute[group].sort((a, b) => {
@@ -83,7 +83,8 @@ async function accessSpredsheet() {
   }
 
   const json = JSON.stringify(output);
-  await promisify(fs.writeFile)(path.join(__dirname, "boat.json"), json);
+  console.log('Routes fetch and json generated');
+  await promisify(fs.writeFile)(path.join(__dirname, "../src/boat.json"), json);
 }
 
-module.exports = accessSpredsheet;
+accessSpredsheet();

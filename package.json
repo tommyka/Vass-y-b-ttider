@@ -4,7 +4,6 @@
 	"private": true,
 	"dependencies": {},
 	"devDependencies": {
-		"browser-sync": "^2.5.3",
 		"google-spreadsheet": "tommyka/node-google-spreadsheet#add-row-index",
 		"typescript": "^3.5.3",
 		"lodash": "4.17.19",
@@ -15,7 +14,6 @@
 	"scripts": {
 		"start": "parcel src/index.html",
 		"build": "parcel build src/index.html",
-		"fetch": "gulp get-routes"
-
+    "fetch": "node ./Routescript/GenerateRoutes.js"
 	}
 }
