@@ -1,43 +1,19 @@
 import { h, render } from "preact";
-import { useState, useEffect } from "preact/hooks";
+import { useState } from "preact/hooks";
 
-import * as rawData from "../boat.json";
-import DateToDay, { TomorrowsRoute } from "../data/DateToDay";
-import MarkCommingRoute from "../data/MarkCommingRoute";
-import AddNightRoutes from "../data/AddNightRoutes";
+import useTimesheet from "../data/useTimesheet";
 import { Day } from "../types/Day";
 import { Direction } from "../types/Direction";
 import DirectionIndicator from "./direction";
 import Header from "./header";
+import InfoPanel from "./info";
 import List from "./list";
 
-const stavangerRaw = rawData.route["s-v"];
-const vassoyRaw = rawData.route["v-s"];
-
-type TimeItem = typeof stavangerRaw.Weekday[0];
-export type TimeList = (TimeItem & {next?:boolean})[];
-export type Route = typeof rawData.route["s-v"];
-
-const useTimesheet = () => {
-  const [day, setDay] = useState(Day.Weekday);
-
-  const now = new Date();
-  const isToday = DateToDay(now) === day;
-
-  const process = (route:Route) => {
-    const tomorrowsDay = TomorrowsRoute(day, now);
-    const r = AddNightRoutes(route[day], route, tomorrowsDay);
-    return isToday ? MarkCommingRoute(r, now) : r;
-  }
-
-  const stavanger = process(stavangerRaw);
-  const vassoy = process(vassoyRaw);
-  return { stavanger, vassoy, setDay, day };
-};
 
 const App = () => {
   const { stavanger, vassoy, setDay, day } = useTimesheet();
   const [direction, setDirection] = useState(Direction.VassøyToStavanger);
+  const [showInfo, setInfoVisibility] = useState(false);
 
   const changeDay = () => {
     const keys = Object.keys(Day);
@@ -51,7 +27,7 @@ const App = () => {
 
   return (
     <div className="relative">
-      <Header>
+      <Header onInfo={()=>setInfoVisibility(true)}>
         <nav className="fixed bottom-0 shadow w-full flex md:bg-gray-700 ">
           <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-r border-t border-bgray">Fra Stavanger</div>
           <button className="p-3 w-1/2 md:hidden bg-svg text-white border-r border-t border-bgray" onClick={changeDirection}>
@@ -65,6 +41,9 @@ const App = () => {
       </Header>
 
       <DirectionIndicator className="md:hidden" />
+
+      {showInfo && <InfoPanel onClose={() => setInfoVisibility(false)}/>}
+
       <div className="flex flex-col md:flex-row">
         <div className={`md:w-1/2 md:block md:mr-1 ${direction !== Direction.StavangerToVassøy ? "hidden" : ""}`}>
           <List list={stavanger} className="bg-vass" />

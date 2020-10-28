@@ -19,6 +19,14 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+p {
+  @apply mb-4;
+}
+
+a {
+  @apply underline;
+}
+
 .icon {
   font-family: "journal_dingbats_2regular";
   font-size: 60px;
