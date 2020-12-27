@@ -16,6 +16,11 @@ module.exports = {
     },
     boxShadow: {
       default: '0px 0px 8px rgba(0, 0, 0, 0.3)'
+    },
+    extend: {
+      backgroundOpacity: {
+        '90': '0.90'
+      }
     }
   },
   variants: {

@@ -44,7 +44,7 @@ const App = () => {
 
       {showInfo && <InfoPanel onClose={() => setInfoVisibility(false)}/>}
 
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col md:flex-row mt-2">
         <div className={`md:w-1/2 md:block md:mr-1 ${direction !== Direction.StavangerToVassøy ? "hidden" : ""}`}>
           <List list={stavanger} className="bg-vass" />
         </div>
