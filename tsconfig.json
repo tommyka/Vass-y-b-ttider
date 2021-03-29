@@ -1,11 +1,14 @@
 {
 	"compilerOptions": {
-		"module": "system",
-		"noImplicitAny": true,
-		"removeComments": true,
-		"preserveConstEnums": true,
-		"out": "/main.js",
-		"sourceMap": true,
-		"target":"ES5"
-	}
-}
+	  "outDir": "./dist",
+	  "sourceMap": true,
+	  "noImplicitAny": true,
+	  "module": "es6",
+	  "moduleResolution": "node",
+	  "target": "es6",
+	  "jsx": "react",
+	  "jsxFactory": "h",
+	  "resolveJsonModule" : true,
+	},
+	"include": ["./src/**/*"]
+  }

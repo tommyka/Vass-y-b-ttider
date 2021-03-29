@@ -2,3 +2,5 @@ node_modules/
 vassoy_app.sublime-project
 vassoy_app.sublime-workspace
 dist/
+old
+.cache/
