@@ -9,8 +9,8 @@ import { Day } from "../types/Day";
 const stavangerRaw = rawData.route["s-v"];
 const vassoyRaw = rawData.route["v-s"];
 
-type TimeItem = typeof stavangerRaw.Weekday[0];
-export type TimeList = (TimeItem & {next?:boolean})[];
+export type TimeItem = typeof stavangerRaw.Weekday[0] & {next?:boolean};
+export type TimeList = TimeItem[];
 export type Route = typeof rawData.route["s-v"];
 
 const useTimesheet = () => {

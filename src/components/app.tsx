@@ -2,13 +2,12 @@ import { h, render } from "preact";
 import { useState } from "preact/hooks";
 
 import useTimesheet from "../data/useTimesheet";
-import { Day } from "../types/Day";
+import { Day, DayMap } from "../types/Day";
 import { Direction } from "../types/Direction";
 import DirectionIndicator from "./direction";
 import Header from "./header";
 import InfoPanel from "./info";
 import List from "./list";
-
 
 const App = () => {
   const { stavanger, vassoy, setDay, day } = useTimesheet();
@@ -33,8 +32,8 @@ const App = () => {
           <button className="p-3 w-1/2 md:hidden bg-svg text-white border-r border-t border-bgray" onClick={changeDirection}>
             {direction === Direction.StavangerToVassøy ? "Fra Stavanger" : "Fra Vassøy"}{" "}
           </button>
-          <button className="p-3 w-1/2 md:1/3 bg-svg text-white border-t border-bgray" onClick={changeDay}>
-            {day}
+          <button className="p-3 w-1/2 md:1/3 bg-svg text-white border-t border-bgray capitalize" onClick={changeDay}>
+            {DayMap[day]}
           </button>
           <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-l border-t border-bgray">Fra Vassøy</div>
         </nav>
