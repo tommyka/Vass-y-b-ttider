@@ -31,14 +31,14 @@ const App = () => {
     <div className="relative">
       <Header onInfo={() => setInfoVisibility(true)}>
         <nav className="fixed bottom-0 shadow w-full flex md:bg-gray-700 ">
-          <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-r border-t border-bgray">Fra Stavanger</div>
+          <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-r border-t border-bgray">Fra Vassøy</div>
           <button className="p-3 w-1/2 md:hidden bg-svg text-white border-r border-t border-bgray" onClick={changeDirection}>
             {direction === Direction.StavangerToVassøy ? "Fra Stavanger" : "Fra Vassøy"}{" "}
           </button>
           <button className="p-3 w-1/2 md:1/3 bg-svg text-white border-t border-bgray capitalize" onClick={changeDay}>
             {DayMap[day]}
           </button>
-          <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-l border-t border-bgray">Fra Vassøy</div>
+          <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-l border-t border-bgray">Fra Stavanger</div>
         </nav>
       </Header>
 
@@ -47,11 +47,11 @@ const App = () => {
       {showInfo && <InfoPanel onClose={() => setInfoVisibility(false)} />}
 
       <div className="flex flex-col md:flex-row mt-2">
-        <div className={`md:w-1/2 md:block md:mr-1 ${direction !== Direction.StavangerToVassøy ? "hidden" : ""}`}>
-          <List list={stavanger} className="bg-vass" />
+        <div className={`md:w-1/2 md:block md:mr-1 ${direction !== Direction.VassøyToStavanger ? "hidden" : ""}`}>
+          <List list={vassoy} className="bg-vass" />
         </div>
-        <div className={`md:w-1/2 md:block md:ml-1 ${direction !== Direction.VassøyToStavanger ? "hidden" : ""}`}>
-          <List list={vassoy} className="bg-svg" />
+        <div className={`md:w-1/2 md:block md:ml-1 ${direction !== Direction.StavangerToVassøy ? "hidden" : ""}`}>
+          <List list={stavanger} className="bg-svg" />
         </div>
       </div>
       <div className="h-12 mb-2"></div>
