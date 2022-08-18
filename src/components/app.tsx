@@ -8,11 +8,14 @@ import DirectionIndicator from "./direction";
 import Header from "./header";
 import InfoPanel from "./info";
 import List from "./list";
+import useGeolocation from "../data/useGeolocation";
 
 const App = () => {
   const { stavanger, vassoy, setDay, day } = useTimesheet();
   const [direction, setDirection] = useState(Direction.VassøyToStavanger);
   const [showInfo, setInfoVisibility] = useState(false);
+
+  useGeolocation(setDirection);
 
   const changeDay = () => {
     const keys = Object.keys(Day);
@@ -26,7 +29,7 @@ const App = () => {
 
   return (
     <div className="relative">
-      <Header onInfo={()=>setInfoVisibility(true)}>
+      <Header onInfo={() => setInfoVisibility(true)}>
         <nav className="fixed bottom-0 shadow w-full flex md:bg-gray-700 ">
           <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-r border-t border-bgray">Fra Stavanger</div>
           <button className="p-3 w-1/2 md:hidden bg-svg text-white border-r border-t border-bgray" onClick={changeDirection}>
@@ -41,7 +44,7 @@ const App = () => {
 
       <DirectionIndicator className="md:hidden" />
 
-      {showInfo && <InfoPanel onClose={() => setInfoVisibility(false)}/>}
+      {showInfo && <InfoPanel onClose={() => setInfoVisibility(false)} />}
 
       <div className="flex flex-col md:flex-row mt-2">
         <div className={`md:w-1/2 md:block md:mr-1 ${direction !== Direction.StavangerToVassøy ? "hidden" : ""}`}>

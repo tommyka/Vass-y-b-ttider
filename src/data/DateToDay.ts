@@ -1,20 +1,20 @@
 import { Day } from "../types/Day";
 
-export default (date:Date) => {
+export default (date: Date) => {
   const day = date.getDay();
-  if(day === 0){
+  if (day === 0) {
     return Day.Sunday;
-  } else if(day === 6) {
+  } else if (day === 6) {
     return Day.Saturday;
   }
 
   return Day.Weekday;
-}
-export const TomorrowsRoute = (today:Day, now:Date) => {
-  if(today === Day.Saturday) {
+};
+export const tomorrowsRoute = (today: Day, now: Date) => {
+  if (today === Day.Saturday) {
     return Day.Sunday;
-  } else if(today === Day.Weekday && now.getDay() === 5){
-    return Day.Saturday
+  } else if (today === Day.Weekday && now.getDay() === 5) {
+    return Day.Saturday;
   }
-  return Day.Weekday
-}
+  return Day.Weekday;
+};
