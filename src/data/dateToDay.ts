@@ -1,5 +1,5 @@
 import { Day } from "../types/Day";
-
+// force
 export default (date: Date) => {
   const day = date.getDay();
   if (day === 0) {
