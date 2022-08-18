@@ -1,4 +1,4 @@
-import { TimeList } from "../components/app";
+import { TimeList } from "./useTimesheet";
 
 const markCommingRoute = (timeList: TimeList, now: Date) => {
   let timeSet = false;
