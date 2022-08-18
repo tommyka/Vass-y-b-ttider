@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "google-spreadsheet": "tommyka/node-google-spreadsheet#add-row-index",
+    "google-spreadsheet": "3.3.0",
     "lodash": "4.17.19",
     "parcel-bundler": "1.12.3",
     "parcel-plugin-appcache": "^0.1.1",
