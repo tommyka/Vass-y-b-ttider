@@ -24,17 +24,18 @@ const List: fc<IListProps> = ({ list, className }) => {
 const ListItem: fc<{ time: TimeItem; className: string }> = ({ time, className }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if(time.next === true) {
-      containerRef.current.scrollIntoView({block: "center"});
+    if (time.next === true) {
+      containerRef.current.scrollIntoView({ block: "center" });
     }
-  }, [time.next])
+  }, [time.next]);
 
   return (
-    <div ref={containerRef} className={`p-2 pr-4 mb-2 text-white font-bold text-2xl flex items-center ${time.next ? "bg-next" : ""} ${className}`}>
+    <div
+      ref={containerRef}
+      className={`p-2 pr-4 mb-2 text-white font-bold text-2xl flex items-center ${time.next ? "bg-next" : ""} ${className}`}
+    >
       <div
-        className={`rounded-full bg-white text-center align-middle mr-4 inline-block icon text-black ${
-          time.id === "898" ? "car" : "person"
-        }`}
+        className={`rounded-full bg-white text-center align-middle mr-4 inline-block icon text-black ${time.id === 898 ? "car" : "person"}`}
       ></div>
       <div className="flex-grow">
         {time.time}
