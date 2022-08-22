@@ -1,4 +1,4 @@
-import { h, render } from "preact";
+import { h, render, FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 
 import useTimesheet from "../data/useTimesheet";
@@ -31,18 +31,16 @@ const App = () => {
     <div className="relative">
       <Header onInfo={() => setInfoVisibility(true)}>
         <nav className="fixed bottom-0 shadow w-full flex md:bg-gray-700 ">
-          <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-r border-t border-bgray">Fra Vassøy</div>
-          <button className="p-3 w-1/2 md:hidden bg-svg text-white border-r border-t border-bgray" onClick={changeDirection}>
+          <FakeButton>Fra Vassøy</FakeButton>
+          <DirectionButton left onClick={changeDirection}>
             {direction === Direction.StavangerToVassøy ? "Fra Stavanger" : "Fra Vassøy"}{" "}
-          </button>
-          <button className="p-3 w-1/2 md:1/3 bg-svg text-white border-t border-bgray capitalize" onClick={changeDay}>
-            {DayMap[day]}
-          </button>
-          <div className="w-1/3 hidden md:block p-3 text-center bg-gray text-white border-l border-t border-bgray">Fra Stavanger</div>
+          </DirectionButton>
+          <DirectionButton onClick={changeDay}>{DayMap[day]}</DirectionButton>
+          <FakeButton right>Fra Stavanger</FakeButton>
         </nav>
       </Header>
 
-      <DirectionIndicator className="md:hidden" />
+      <DirectionIndicator className="md:hidden" direction={direction} />
 
       {showInfo && <InfoPanel onClose={() => setInfoVisibility(false)} />}
 
@@ -54,9 +52,25 @@ const App = () => {
           <List list={stavanger} className="bg-svg" />
         </div>
       </div>
-      <div className="h-12 mb-2"></div>
+      <div className="h-12"></div>
     </div>
   );
 };
+
+const FakeButton: FunctionalComponent<{ right?: boolean }> = ({ children, right }) => (
+  <div className={`w-1/3 hidden md:block p-3 text-center bg-gray text-white border-t border-bgray ${right ? "border-l" : "border-r"}`}>
+    {children}
+  </div>
+);
+
+const DirectionButton: FunctionalComponent<{ left?: boolean; onClick: () => void }> = ({ left, onClick, children }) => (
+  <button
+    type="button"
+    className={`p-3 w-1/2 capitalize bg-svg text-white focus:outline-none border-t border-bgray ${left ? "border-r md:hidden" : "md:1/3"}`}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
 
 export default App;
