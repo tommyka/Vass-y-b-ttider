@@ -33,7 +33,7 @@ const App = () => {
         <nav className="fixed bottom-0 shadow w-full flex md:bg-gray-700 ">
           <FakeButton>Fra Vassøy</FakeButton>
           <DirectionButton left onClick={changeDirection}>
-            {direction === Direction.StavangerToVassøy ? "Fra Stavanger" : "Fra Vassøy"}{" "}
+            {direction === Direction.StavangerToVassøy ? "Fra Stavanger" : "Fra Vassøy"}
           </DirectionButton>
           <DirectionButton onClick={changeDay}>{DayMap[day]}</DirectionButton>
           <FakeButton right>Fra Stavanger</FakeButton>

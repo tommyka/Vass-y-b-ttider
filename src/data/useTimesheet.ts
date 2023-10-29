@@ -9,12 +9,12 @@ import { Day } from "../types/Day";
 const stavangerRaw = rawData.route["s-v"];
 const vassoyRaw = rawData.route["v-s"];
 
-export type TimeItem = typeof stavangerRaw.Weekday[0] & { next?: boolean };
+export type TimeItem = (typeof stavangerRaw.Weekday)[0] & { next?: boolean };
 export type TimeList = TimeItem[];
-export type Route = typeof rawData.route["s-v"];
+export type Route = (typeof rawData.route)["s-v"];
 
 const useTimesheet = () => {
-  const [day, setDay] = useState(Day.Weekday);
+  const [day, setDay] = useState(getInitialDay);
 
   const now = new Date();
   const isToday = dateToDay(now) === day;
@@ -28,6 +28,19 @@ const useTimesheet = () => {
   const stavanger = process(stavangerRaw);
   const vassoy = process(vassoyRaw);
   return { stavanger, vassoy, setDay, day };
+};
+
+const getInitialDay = () => {
+  var dayIndex = new Date().getDay();
+
+  switch (dayIndex) {
+    case 0:
+      return Day.Sunday;
+    case 6:
+      return Day.Saturday;
+    default:
+      return Day.Weekday;
+  }
 };
 
 export default useTimesheet;
