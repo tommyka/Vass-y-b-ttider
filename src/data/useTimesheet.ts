@@ -13,8 +13,8 @@ export type TimeItem = (typeof stavangerRaw.Weekday)[0] & { next?: boolean };
 export type TimeList = TimeItem[];
 export type Route = (typeof rawData.route)["s-v"];
 
-const useTimesheet = () => {
-  const [day, setDay] = useState(getInitialDay);
+const useTimesheet = (initialDay?: Day) => {
+  const [day, setDay] = useState(initialDay ?? getInitialDay());
 
   const now = new Date();
   const isToday = dateToDay(now) === day;

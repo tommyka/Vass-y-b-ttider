@@ -3,8 +3,12 @@ import { useEffect } from "preact/hooks";
 
 const vassoy_center = [58.993102, 5.78635];
 
-const useGeolocation = (onLocationsFetched: (direction: Direction) => void) => {
+const useGeolocation = (onLocationsFetched: (direction: Direction) => void, gotCachedLocation: boolean) => {
   useEffect(() => {
+    console.log("gotCachedLocation", gotCachedLocation);
+    if (gotCachedLocation) {
+      return;
+    }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (e: any) {
         const dx = Math.abs(vassoy_center[0] - e.coords.latitude);
