@@ -1,4 +1,4 @@
-import { h, render, FunctionalComponent } from "preact";
+import { h, FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 
 import useTimesheet from "../data/useTimesheet";
@@ -9,22 +9,29 @@ import Header from "./header";
 import InfoPanel from "./info";
 import List from "./list";
 import useGeolocation from "../data/useGeolocation";
+import useSelectionCache, { setCacheData } from "../data/useSelectionCache";
 
 const App = () => {
-  const { stavanger, vassoy, setDay, day } = useTimesheet();
-  const [direction, setDirection] = useState(Direction.VassøyToStavanger);
+  const initialSetup = useSelectionCache();
+  const { stavanger, vassoy, setDay, day } = useTimesheet(initialSetup.day);
+  const [direction, setDirection] = useState(initialSetup.direction ?? Direction.VassøyToStavanger);
   const [showInfo, setInfoVisibility] = useState(false);
 
-  useGeolocation(setDirection);
+  useGeolocation(setDirection, initialSetup.direction !== undefined);
 
   const changeDay = () => {
     const keys = Object.keys(Day);
-    const index = keys.findIndex((item) => item === day);
-    setDay(keys[(index + 1) % keys.length] as Day);
+    const index = keys.findIndex((item) => item == day);
+    const newDay = keys[(index + 1) % keys.length] as Day;
+
+    setDay(newDay);
+    setCacheData({ day: newDay });
   };
 
   const changeDirection = () => {
-    setDirection(direction === Direction.StavangerToVassøy ? Direction.VassøyToStavanger : Direction.StavangerToVassøy);
+    const newDirection = direction === Direction.StavangerToVassøy ? Direction.VassøyToStavanger : Direction.StavangerToVassøy;
+    setCacheData({ direction: newDirection });
+    setDirection(newDirection);
   };
 
   return (
