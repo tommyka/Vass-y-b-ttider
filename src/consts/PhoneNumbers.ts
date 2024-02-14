@@ -1,2 +1,2 @@
-export const FJORDSOL = '48201919';
-export const RYGERBUEN = '98241520';
+export const HURTIGBAAT = "47756220";
+export const RYGERBUEN = "98241520";

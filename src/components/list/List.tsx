@@ -1,6 +1,6 @@
 import { h, FunctionalComponent as fc } from "preact";
 
-import { FJORDSOL } from "../../consts/PhoneNumbers";
+import { HURTIGBAAT } from "../../consts/PhoneNumbers";
 import { TimeItem, TimeList } from "../../data/useTimesheet";
 
 import phoneIcons from "../../assets/phoneicon.svg";
@@ -43,7 +43,7 @@ const ListItem: fc<{ time: TimeItem; className: string }> = ({ time, className }
       </div>
       {time.call && (
         <div className="mr-4">
-          <a href={`tel:${FJORDSOL}`}>
+          <a href={`tel:${HURTIGBAAT}`}>
             <img src={phoneIcons} alt="Ring fjordsjol" />
           </a>
         </div>

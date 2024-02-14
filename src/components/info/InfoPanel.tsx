@@ -1,5 +1,5 @@
 import { FunctionalComponent, h } from "preact";
-import { FJORDSOL, RYGERBUEN } from "../../consts/PhoneNumbers";
+import { HURTIGBAAT, RYGERBUEN } from "../../consts/PhoneNumbers";
 
 const InfoPanel: FunctionalComponent<{ onClose: () => void }> = ({ onClose }) => {
   return (
@@ -18,7 +18,7 @@ const InfoPanel: FunctionalComponent<{ onClose: () => void }> = ({ onClose }) =>
         <p>
           Telefon til båtene
           <br />
-          <a href={`tel:${FJORDSOL}`}>Fjordsol: {formatPhoneNumber(FJORDSOL)}</a>
+          <a href={`tel:${HURTIGBAAT}`}>Hurtigbåten: {formatPhoneNumber(HURTIGBAAT)}</a>
           <br />
           <a href={`tel:${RYGERBUEN}`}>Rygerbuen: {formatPhoneNumber(RYGERBUEN)}</a>
         </p>
