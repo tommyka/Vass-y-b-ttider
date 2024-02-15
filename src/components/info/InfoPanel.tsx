@@ -20,6 +20,8 @@ const InfoPanel: FunctionalComponent<{ onClose: () => void }> = ({ onClose }) =>
           <br />
           <a href={`tel:${HURTIGBAAT}`}>Hurtigbåten: {formatPhoneNumber(HURTIGBAAT)}</a>
           <br />
+          <a href={`tel:99466100`}>Reserve båt Helgø Glimt: {formatPhoneNumber("99466100")}</a>
+          <br />
           <a href={`tel:${RYGERBUEN}`}>Rygerbuen: {formatPhoneNumber(RYGERBUEN)}</a>
         </p>
         <p>Jeg tar forbehold om trykkfeil og ved specielle dager, der vil den automatiske datovalg ikke være korrekt.</p>
