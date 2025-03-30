@@ -1,4 +1,4 @@
-import { h, render, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 import { Direction } from "../../types/Direction";
 
 const DirectionIndicator: FunctionalComponent<{ className: string; direction: Direction }> = ({ className = "", direction }) => {

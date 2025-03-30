@@ -1,4 +1,4 @@
-import { h, render, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 
 import infoIcons from './InfoIcon.png';
 

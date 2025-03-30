@@ -1,4 +1,4 @@
-import { h, FunctionalComponent as fc } from "preact";
+import { FunctionalComponent as fc } from "preact";
 
 import { HURTIGBAAT } from "../../consts/PhoneNumbers";
 import { TimeItem, TimeList } from "../../data/useTimesheet";
