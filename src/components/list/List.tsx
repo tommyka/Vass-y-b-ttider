@@ -3,7 +3,7 @@ import { h, FunctionalComponent as fc } from "preact";
 import { HURTIGBAAT } from "../../consts/PhoneNumbers";
 import { TimeItem, TimeList } from "../../data/useTimesheet";
 
-import phoneIcons from "../../assets/phoneicon.svg";
+import phoneIcons from "./phoneicon.svg";
 import { useEffect, useRef } from "preact/hooks";
 
 interface IListProps {
@@ -14,8 +14,8 @@ interface IListProps {
 const List: fc<IListProps> = ({ list, className }) => {
   return (
     <div>
-      {list.map((time) => (
-        <ListItem key={time.time} time={time} className={className} />
+      {list.map((time, index) => (
+        <ListItem key={`${time.time}-${index}`} time={time} className={className} />
       ))}
     </div>
   );
@@ -24,7 +24,7 @@ const List: fc<IListProps> = ({ list, className }) => {
 const ListItem: fc<{ time: TimeItem; className: string }> = ({ time, className }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (time.next === true) {
+    if (time.next === true && containerRef.current) {
       containerRef.current.scrollIntoView({ block: "center" });
     }
   }, [time.next]);

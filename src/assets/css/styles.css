@@ -1,6 +1,24 @@
-@tailwind base;
+@import "tailwindcss";
 
-@tailwind components;
+@theme {
+  --color-nav: #3498db;
+  --color-vass: #1abc9c;
+  --color-svg: #2980b9;
+  --color-bgray: rgba(0, 0, 0, .3);
+  --color-next: #e67e22;
+}
+
+/* 
+nav: '#3498db',
+      vass: '#1abc9c',
+      svg: '#2980b9',
+      gray: 'gray',
+      bgray: 'rgba(0,0,0,.3)',
+      white: '#ffffff',
+      black: '#000000',
+      next: '#e67e22' */
+
+/* @tailwind components; */
 
 @font-face {
   font-family: "journal_dingbats_2regular";
@@ -9,8 +27,7 @@
     url("../font/journaldingbats2-webfont.woff2") format("woff2"),
     url("../font/journaldingbats2-webfont.woff") format("woff"),
     url("../font/journaldingbats2-webfont.ttf") format("truetype"),
-    url("../font/journaldingbats2-webfont.svg#journal_dingbats_2regular")
-      format("svg");
+    url("../font/journaldingbats2-webfont.svg#journal_dingbats_2regular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -36,9 +53,11 @@ a {
   font-weight: normal;
   line-height: 70px;
 }
+
 .icon.car:before {
   content: "\2248";
 }
+
 .icon.person:before {
   content: "\0078";
 }
