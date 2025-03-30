@@ -9,7 +9,7 @@
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
     "@tailwindcss/vite": "4.0.17",
-    "google-spreadsheet": "4.1.4",
+    "google-spreadsheet": "3.3.0",
     "lodash": "4.17.21",
     "tailwindcss": "4.0.17",
     "typescript": "5.8.2",
@@ -19,6 +19,6 @@
     "start": "vite",
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b",
-    "fetch": "node ./Routescript/GenerateRoutes.js"
+    "fetch": "node ./Routescript/GenerateRoutes.cjs"
   }
 }
