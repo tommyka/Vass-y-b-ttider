@@ -1,6 +1,5 @@
 import { Day } from "../types/Day";
 import { Direction } from "../types/Direction";
-import { useEffect, useState } from "preact/hooks";
 
 const CACHE_KEY = "ferry_cache";
 

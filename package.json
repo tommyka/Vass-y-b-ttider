@@ -18,6 +18,7 @@
   "scripts": {
     "start": "vite",
     "build": "tsc -b && vite build",
+    "typecheck": "tsc -b",
     "fetch": "node ./Routescript/GenerateRoutes.js"
   }
 }
