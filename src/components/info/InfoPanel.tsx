@@ -1,9 +1,9 @@
-import { FunctionalComponent, h } from "preact";
+import { FunctionalComponent } from "preact";
 import { HURTIGBAAT, RYGERBUEN } from "../../consts/PhoneNumbers";
 
 const InfoPanel: FunctionalComponent<{ onClose: () => void }> = ({ onClose }) => {
   return (
-    <div className="fixed z-20 inset-0 bg-black bg-opacity-90 text-white p-16">
+    <div className="fixed z-20 inset-0 bg-black/90 text-white p-16">
       <article className="relative">
         <button
           className="absolute right-0 -mr-8 rounded-full border-2 border-white flex text-white w-8 h-8 hover:bg-white hover:text-black items-center justify-center"

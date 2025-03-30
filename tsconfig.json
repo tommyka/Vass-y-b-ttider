@@ -1,14 +1,7 @@
 {
-	"compilerOptions": {
-	  "outDir": "./dist",
-	  "sourceMap": true,
-	  "noImplicitAny": true,
-	  "module": "es6",
-	  "moduleResolution": "node",
-	  "target": "es6",
-	  "jsx": "react",
-	  "jsxFactory": "h",
-	  "resolveJsonModule" : true,
-	},
-	"include": ["./src/**/*"]
-  }
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
