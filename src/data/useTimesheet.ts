@@ -13,7 +13,8 @@ export type TimeItem = (typeof stavangerRaw.Weekday)[0] & { next?: boolean };
 export type TimeList = TimeItem[];
 export type Route = (typeof rawData.route)["s-v"];
 
-const useTimesheet = (initialDay?: Day) => {
+/** `highlight` marks a specific time (from a deeplink) instead of the next departure from now. */
+const useTimesheet = (initialDay?: Day, highlight?: { day: Day; time: number }) => {
   const [day, setDay] = useState(initialDay ?? getInitialDay());
 
   const now = new Date();
@@ -22,7 +23,8 @@ const useTimesheet = (initialDay?: Day) => {
   const process = (route: Route) => {
     const tomorrowsDay = tomorrowsRoute(day, now);
     const r = addNightRoutes(route[day], route, tomorrowsDay);
-    return isToday ? markCommingRoute(r, now) : r;
+    if (highlight && highlight.day === day) return markCommingRoute(r, highlight.time, true);
+    return isToday ? markCommingRoute(r, now.getHours() * 100 + now.getMinutes()) : r;
   };
 
   const stavanger = process(stavangerRaw);

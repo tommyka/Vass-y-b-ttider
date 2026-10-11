@@ -4,20 +4,28 @@ import { useState } from "preact/hooks";
 import useTimesheet from "../data/useTimesheet";
 import { Day, DayMap } from "../types/Day";
 import { Direction } from "../types/Direction";
+import dateToDay from "../data/dateToDay";
 import DirectionIndicator from "./direction";
 import Header from "./header";
 import InfoPanel from "./info";
 import List from "./list";
 import useGeolocation from "../data/useGeolocation";
 import useSelectionCache, { setCacheData } from "../data/useSelectionCache";
+import useDeeplink from "../data/useDeeplink";
 
 const App = () => {
-  const initialSetup = useSelectionCache();
-  const { stavanger, vassoy, setDay, day } = useTimesheet(initialSetup.day);
-  const [direction, setDirection] = useState(initialSetup.direction ?? Direction.VassøyToStavanger);
+  const cached = useSelectionCache();
+  const deeplink = useDeeplink();
+  // A deeplink wins over the cached selection and the location
+  const initialDay = deeplink.day ?? cached.day;
+  const initialDirection = deeplink.direction ?? cached.direction;
+  const highlight = deeplink.time !== undefined ? { day: initialDay ?? dateToDay(new Date()), time: deeplink.time } : undefined;
+
+  const { stavanger, vassoy, setDay, day } = useTimesheet(initialDay, highlight);
+  const [direction, setDirection] = useState(initialDirection ?? Direction.VassøyToStavanger);
   const [showInfo, setInfoVisibility] = useState(false);
 
-  useGeolocation(setDirection, initialSetup.direction !== undefined);
+  useGeolocation(setDirection, initialDirection !== undefined);
 
   const changeDay = () => {
     const keys = Object.keys(Day);

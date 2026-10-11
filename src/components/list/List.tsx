@@ -32,7 +32,7 @@ const ListItem: fc<{ time: TimeItem; className: string }> = ({ time, className }
   return (
     <div
       ref={containerRef}
-      className={`p-2 pr-4 mb-2 text-white font-bold text-2xl flex items-center ${time.next ? "bg-next" : ""} ${className}`}
+      className={`p-2 pr-4 mb-2 text-white font-bold text-2xl flex items-center ${time.next ? "bg-next" : className}`}
     >
       <div
         className={`rounded-full bg-white text-center align-middle mr-4 inline-block icon text-black ${time.id === 898 ? "car" : "person"}`}
